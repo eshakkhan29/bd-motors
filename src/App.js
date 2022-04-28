@@ -1,9 +1,14 @@
 import './App.css';
+import Banner from './componets/Banner/Banner';
+import Footer from './componets/Footer/Footer';
+import Header from './componets/Header/Header';
 
 function App() {
   return (
-    <div className="App">
-
+    <div>
+      <Header></Header>
+      <Banner></Banner>
+      <Footer></Footer>
     </div>
   );
 }
