@@ -1,0 +1,11 @@
+.banner {
+    height: calc(100vh - 100px);
+    object-fit: cover;
+}
+
+@media only screen and (max-width:500px) {
+    .banner {
+        height: 40vh;
+        object-fit: cover;
+    }
+}

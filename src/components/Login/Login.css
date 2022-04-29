@@ -1,0 +1,14 @@
+.text-link {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.login{
+    width: 25%;
+}
+
+@media only screen and (max-width:500px) {
+    .login{
+        width: 80%;
+    }
+}
