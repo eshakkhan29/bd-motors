@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Product from "../Product/Product";
 const Inventory = () => {
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     useEffect(() => {
         fetch("http://localhost:5000/products")
@@ -14,6 +16,9 @@ const Inventory = () => {
                 {
                     products.map(product => <Product key={product._id} product={product}></Product>)
                 }
+            </div>
+            <div className='my-3 text-center'>
+                <button onClick={()=>navigate('/manageInventories')} className='btn btn-dark'>Manage Inventories</button>
             </div>
         </div>
     );
