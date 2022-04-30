@@ -24,7 +24,7 @@ const MyProductDetails = ({ product }) => {
     return (
         <div className='col-lg-4'>
             <div className='card'>
-                <img src={img} alt="product" />
+                <img src={img} alt="bike" />
                 <div className='card-body'>
                     <h2>{name}</h2>
                     <h2>{price}</h2>
