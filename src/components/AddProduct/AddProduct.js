@@ -2,9 +2,12 @@ import axios from 'axios';
 import './AddProduct.css'
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../Login/firebase.init';
 
 
 const AddProduct = () => {
+    const [user] = useAuthState(auth);
     const nameRef = useRef('');
     const descriptionRef = useRef('');
     const supplierRef = useRef('');
@@ -14,17 +17,19 @@ const AddProduct = () => {
 
     const handelAddProduct = async event => {
         event.preventDefault();
+        const email = user?.email;
         const name = nameRef.current.value;
         const description = descriptionRef.current.value;
         const supplier = supplierRef.current.value;
         const price = priceRef.current.value;
         const quantity = quantityRef.current.value;
         const img = imgUlrRef.current.value;
-        const product = { name, description, supplier, price, quantity, img };
+        const product = { email, name, description, supplier, price, quantity, img };
 
         axios.post('http://localhost:5000/products', product)
             .then(function (response) {
                 console.log(response);
+                event.target.reset();
             })
             .catch(function (error) {
                 console.log(error);

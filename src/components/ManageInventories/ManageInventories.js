@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './ManageInventories.css'
 import { useNavigate } from 'react-router-dom';
 import ManageProduct from '../ManageProduct/ManageProduct';
+import useMangeProduct from '../../hook/useMangeProduct';
 
 const ManageInventories = () => {
     const navigate = useNavigate();
-    const [products, setProducts] = useState([]);
-    useEffect(() => {
-        fetch("http://localhost:5000/products/all")
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, [])
+    const [products] = useMangeProduct([]);
+   
     return (
         <div className='ManageInventories mx-auto mt-5'>
             <div className='d-flex justify-content-around align-items-center flex-lg-row flex-column'>
