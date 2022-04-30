@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useMangeProduct from '../../hook/useMangeProduct';
 import './ManageProduct.css'
 
 const ManageProduct = ({ product }) => {
+    const navigate = useNavigate();
     const { name, img, price, _id, quantity } = product;
     const [products, setProducts] = useMangeProduct([]);
     const [agree, setAgree] = useState(true);
@@ -21,7 +23,7 @@ const ManageProduct = ({ product }) => {
 
     const handelDeleteProduct = id => {
 
-        const url = `http://localhost:5000/product/${id}`;
+        const url = `https://fierce-everglades-14403.herokuapp.com/product/${id}`;
         fetch(url, {
             method: 'DELETE',
         }).then(res => res.json())
@@ -37,7 +39,7 @@ const ManageProduct = ({ product }) => {
     return (
         <div className='manage-item col-12 d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column p-3 justify-content-center align-items-center'>
             <div>
-                <img className='pdimage' width={150} height={150} src={img} alt="" />
+                <img className='pdimage' width={100} height={100} src={img} alt="" />
             </div>
             <div className='my-lg-0 my-3'>
                 <h3>{name}</h3>
@@ -45,7 +47,8 @@ const ManageProduct = ({ product }) => {
                 <p>In Stock: <b>{quantity}</b></p>
             </div>
             <div className='delete-button'>
-                <button onClick={handleShow} className='btn btn-danger delete-button'>Delete</button>
+                <button onClick={handleShow} className='btn btn-danger delete-button me-2'>Delete</button>
+                <button onClick={() => navigate(`/inventory/${_id}`)} className='btn btn-dark update-button'>Update</button>
             </div>
             <Modal show={show}>
                 <Modal.Body>

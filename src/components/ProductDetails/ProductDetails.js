@@ -14,7 +14,7 @@ const ProductDetails = () => {
     console.log(state);
 
     useEffect(() => {
-        const url = `http://localhost:5000/product/${productID}`;
+        const url = `https://fierce-everglades-14403.herokuapp.com/product/${productID}`;
         fetch(url)
             .then(res => res.json())
             .then(data => setProduct(data))
@@ -31,7 +31,7 @@ const ProductDetails = () => {
         setUpdateProduct(updatedProduct)
         console.log(updatedProduct);
 
-        const url = `http://localhost:5000/product/${productID}`;
+        const url = `https://fierce-everglades-14403.herokuapp.com/product/${productID}`;
         const res = await axios.put(url, updateProduct);
         console.log(res);
         setState(!state);
@@ -60,7 +60,7 @@ const ProductDetails = () => {
         console.log(updatedProduct);
         setState(!state);
 
-        const url = `http://localhost:5000/product/${productID}`;
+        const url = `https://fierce-everglades-14403.herokuapp.com/product/${productID}`;
         fetch(url, {
             method: 'PUT',
             headers: {

@@ -6,7 +6,7 @@ import MyProductDetails from '../MyProductDetails/MyProductDetails';
 const MyItem = () => {
     const [user] = useAuthState(auth);
     const [product, setProduct] = useState([]);
-    const url = `http://localhost:5000/userProducts?email=${user.email}`;
+    const url = `https://fierce-everglades-14403.herokuapp.com/userProducts?email=${user.email}`;
     console.log(product);
     useEffect(() => {
         fetch(url)

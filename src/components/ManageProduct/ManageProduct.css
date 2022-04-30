@@ -10,5 +10,9 @@
 @media only screen and (max-width:500px) {
     .delete-button {
         width: 90%;
+        margin-bottom: 10px;
+    }
+    .update-button{
+        width: 90%;
     }
 }

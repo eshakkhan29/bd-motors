@@ -4,7 +4,7 @@ const useMangeProduct = () => {
     const [products, setProducts] = useState([]);
     const [changeState, setChangeState] = useState(false);
     useEffect(() => {
-        fetch("http://localhost:5000/products/all")
+        fetch("https://fierce-everglades-14403.herokuapp.com/products/all")
             .then(res => res.json())
             .then(data => setProducts(data))
     }, [changeState]);

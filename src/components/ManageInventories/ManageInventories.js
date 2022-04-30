@@ -3,10 +3,15 @@ import './ManageInventories.css'
 import { useNavigate } from 'react-router-dom';
 import ManageProduct from '../ManageProduct/ManageProduct';
 import useMangeProduct from '../../hook/useMangeProduct';
+import Loading from "../Loading/Loading";
 
 const ManageInventories = () => {
     const navigate = useNavigate();
     const [products] = useMangeProduct([]);
+
+    if (products.length === 0) {
+        return <Loading></Loading>
+    }
 
     return (
         <div className='ManageInventories mx-auto mt-5'>

@@ -20,7 +20,7 @@ const MyProductDetails = ({ product }) => {
     console.log(agree);
 
     const handelDeleteProduct = id => {
-        const url = `http://localhost:5000/product/${id}`;
+        const url = `https://fierce-everglades-14403.herokuapp.com/product/${id}`;
         if (agree) {
             fetch(url, {
                 method: 'DELETE',
