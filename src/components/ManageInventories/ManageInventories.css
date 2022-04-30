@@ -1,0 +1,9 @@
+.ManageInventories{
+    width: 40%;
+}
+
+@media only screen and (max-width:500px) {
+    .ManageInventories{
+        width: 90%;
+    }
+}

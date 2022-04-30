@@ -1,3 +1,5 @@
+import axios from 'axios';
+import './AddProduct.css'
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
@@ -10,7 +12,7 @@ const AddProduct = () => {
     const quantityRef = useRef('');
     const imgUlrRef = useRef('');
 
-    const handelAddProduct = event => {
+    const handelAddProduct = async event => {
         event.preventDefault();
         const name = nameRef.current.value;
         const description = descriptionRef.current.value;
@@ -19,11 +21,19 @@ const AddProduct = () => {
         const quantity = quantityRef.current.value;
         const img = imgUlrRef.current.value;
         const product = { name, description, supplier, price, quantity, img };
-        console.log(product);
+
+        axios.post('http://localhost:5000/products', product)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        // console.log(product);
     }
     return (
         <div>
-            <div className='signup mx-auto my-5'>
+            <div className='addProduct mx-auto my-5'>
                 <Form onSubmit={handelAddProduct}>
                     <h2>Add New Product</h2>
                     <Form.Group className="mb-3" >

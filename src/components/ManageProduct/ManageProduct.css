@@ -1,0 +1,14 @@
+.pdimage {
+    border-radius: 8px;
+}
+
+.manage-item {
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width:500px) {
+    .delete-button {
+        width: 90%;
+    }
+}
