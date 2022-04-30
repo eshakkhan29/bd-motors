@@ -1,16 +1,34 @@
 import React from 'react';
-import './ManageInventories.css'
+import './ManageInventories.css';
 import { useNavigate } from 'react-router-dom';
 import ManageProduct from '../ManageProduct/ManageProduct';
 import useMangeProduct from '../../hook/useMangeProduct';
 import Loading from "../Loading/Loading";
+import { toast } from 'react-toastify';
 
 const ManageInventories = () => {
     const navigate = useNavigate();
-    const [products] = useMangeProduct([]);
+    const [products, setProducts] = useMangeProduct([]);
+
 
     if (products.length === 0) {
         return <Loading></Loading>
+    }
+
+    const handelDeleteProduct = id => {
+        
+        const url = `https://fierce-everglades-14403.herokuapp.com/product/${id}`;
+        fetch(url, {
+            method: 'DELETE',
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data?.acknowledged === true) {
+                    const restProducts = products.filter(product => product._id !== id)
+                    setProducts(restProducts);
+                    toast.error('Product Delete successfully')
+                }
+            })
     }
 
     return (
@@ -21,9 +39,10 @@ const ManageInventories = () => {
             </div>
             <div className='row gy-4 my-3'>
                 {
-                    products.map(product => <ManageProduct key={product._id} product={product}></ManageProduct>)
+                    products.map(product => <ManageProduct key={product._id} handelDeleteProduct={handelDeleteProduct} product={product}></ManageProduct>)
                 }
             </div>
+
         </div>
     );
 };
