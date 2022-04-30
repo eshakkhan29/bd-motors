@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import './Login.css';
 import { Button, Form } from 'react-bootstrap';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from './firebase.init';
 import Loading from '../Loading/Loading';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 
@@ -24,14 +24,19 @@ const Login = () => {
 
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
 
+    const [sendPasswordResetEmail, sending, passResetError] = useSendPasswordResetEmail(auth);
+
     const emailRef = useRef('');
     const passRef = useRef('');
 
-    if (loading || googleLoading) {
+    if (loading || googleLoading || sending) {
         return <Loading></Loading>
     }
+
+    if (error || googleError || passResetError) {
+        toast.error(`${error ? error.message : ""} ${googleError ? googleError.message : ""} ${passResetError ? passResetError.message : ""}`)
+    }
     if (user || googleUser) {
-        // toast.success('Login Success')
         navigate(from, { replace: true });
     }
 
@@ -41,6 +46,12 @@ const Login = () => {
         const pass = passRef.current.value;
         await signInWithEmailAndPassword(email, pass)
         event.target.reset();
+    }
+
+    const handelPassReset = async event => {
+        const email = emailRef.current.value;
+        await sendPasswordResetEmail(email);
+        toast.success('Sent Email')
     }
 
 
@@ -57,7 +68,7 @@ const Login = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control ref={passRef} type="password" placeholder="Password" />
                 </Form.Group>
-                <p className='text-link'>Forget Password ?</p>
+                <p onClick={handelPassReset} className='text-link'>Forget Password ?</p>
                 <Button className='w-100' variant="dark" type="submit">
                     Login
                 </Button>

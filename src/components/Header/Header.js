@@ -7,7 +7,7 @@ import auth from '../Login/firebase.init';
 import { signOut } from "firebase/auth";
 
 const Header = () => {
-    const [user, loading, error] = useAuthState(auth);
+    const [user] = useAuthState(auth);
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -25,6 +25,7 @@ const Header = () => {
                                 </>
                             }
                             <Nav.Link as={Link} to="/about">About</Nav.Link>
+                            <Nav.Link as={Link} to="/blogs">Blogs</Nav.Link>
                         </Nav>
                         <Nav>
                             {
@@ -33,10 +34,11 @@ const Header = () => {
                             }
                             {
                                 user &&
-                                <>
+                                <div className='d-flex align-items-center'>
                                     <button className='logOut-btn' onClick={() => signOut(auth)}>Sign Out</button>
+                                    <img className='rounded-circle mx-3' src={user?.photoURL} height={40} width={40} alt="" />
                                     <h3 className='text-white fs-5'>{user?.displayName}</h3>
-                                </>
+                                </div>
                             }
                         </Nav>
                     </Navbar.Collapse>

@@ -17,8 +17,8 @@ const Inventory = () => {
                     products.map(product => <Product key={product._id} product={product}></Product>)
                 }
             </div>
-            <div className='my-3 text-center'>
-                <button onClick={()=>navigate('/manageInventories')} className='btn btn-dark'>Manage Inventories</button>
+            <div className='my-5 text-center'>
+                <button onClick={()=>navigate('/manageInventories')} className='btn btn-dark w-25'>Manage Inventories</button>
             </div>
         </div>
     );

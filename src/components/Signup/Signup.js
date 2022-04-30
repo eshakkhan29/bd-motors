@@ -29,6 +29,9 @@ const Signup = () => {
     if (loading || googleLoading || updating) {
         return <Loading></Loading>
     }
+    if (error || googleError || updateError) {
+        toast.error(`${error ? error.message : ""} ${googleError ? googleError.message : ""} ${updateError ? updateError.message : ""}`);
+    }
     if (user || googleUser) {
         toast.success('Sign Up success')
         navigate('/login')

@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../Login/firebase.init';
+import { toast } from 'react-toastify';
 
 
 const AddProduct = () => {
@@ -28,13 +29,14 @@ const AddProduct = () => {
 
         axios.post('http://localhost:5000/products', product)
             .then(function (response) {
-                console.log(response);
-                event.target.reset();
+                if (response.data.acknowledged === true) {
+                    toast.success('Your product added successfully')
+                    event.target.reset();
+                }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(error =>{
+                toast.error('something went wrong')
             });
-        // console.log(product);
     }
     return (
         <div>
