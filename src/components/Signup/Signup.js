@@ -16,7 +16,7 @@ const Signup = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
@@ -33,7 +33,7 @@ const Signup = () => {
         toast.error(`${error ? error.message : ""} ${googleError ? googleError.message : ""} ${updateError ? updateError.message : ""}`);
     }
     if (user || googleUser) {
-        toast.success('Sign Up success')
+        toast.success('Sign Up success , Please verify your email')
         navigate('/login')
     }
 
