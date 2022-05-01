@@ -16,7 +16,7 @@ const MyItem = () => {
 
     useEffect(() => {
         const getMyProducts = async () => {
-            const url = `http://localhost:5000/userProducts?email=${user.email}`;
+            const url = `https://fierce-everglades-14403.herokuapp.com/userProducts?email=${user.email}`;
             try {
                 const { data } = await axios.get(url, {
                     headers: {

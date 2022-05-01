@@ -7,7 +7,7 @@ const useUserToken = (user) => {
         const getToken = async () => {
             const email = user?.user?.email;
             if (email) {
-                const { data } = await axios.post('http://localhost:5000/login', { email });
+                const { data } = await axios.post('https://fierce-everglades-14403.herokuapp.com/login', { email });
                 console.log(data);
                 setToken(data.token);
                 localStorage.setItem('accessToken', data.token);
