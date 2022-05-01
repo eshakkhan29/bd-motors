@@ -7,6 +7,7 @@ import Loading from '../Loading/Loading';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useUserToken from '../../hook/useUserToken';
 
 
 
@@ -23,7 +24,7 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
 
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
-
+    const [token] = useUserToken(user || googleUser);
     const [sendPasswordResetEmail, sending, passResetError] = useSendPasswordResetEmail(auth);
 
     const emailRef = useRef('');
@@ -36,7 +37,7 @@ const Login = () => {
     if (error || googleError || passResetError) {
         toast.error(`${error ? error.message : ""} ${googleError ? googleError.message : ""} ${passResetError ? passResetError.message : ""}`)
     }
-    if (user || googleUser) {
+    if (token) {
         navigate(from, { replace: true });
     }
 
@@ -50,8 +51,13 @@ const Login = () => {
 
     const handelPassReset = async event => {
         const email = emailRef.current.value;
-        await sendPasswordResetEmail(email);
-        toast.success('Sent Email')
+        if (email) {
+            await sendPasswordResetEmail(email);
+            toast.success('Sent Email');
+        }
+        else{
+            toast.error('input tour email address');
+        }
     }
 
 

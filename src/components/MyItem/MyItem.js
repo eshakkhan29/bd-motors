@@ -1,22 +1,39 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import useMangeProduct from '../../hook/useMangeProduct';
 import auth from '../Login/firebase.init';
 import MyProductDetails from '../MyProductDetails/MyProductDetails';
-
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 const MyItem = () => {
+    const navigate = useNavigate();
     const [user] = useAuthState(auth);
     const [products, setProducts] = useMangeProduct([]);
     const [product, setProduct] = useState([]);
 
-    const url = `https://fierce-everglades-14403.herokuapp.com/userProducts?email=${user.email}`;
-    console.log(product);
+
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setProduct(data))
-    }, [url]);
+        const getMyProducts = async () => {
+            const url = `http://localhost:5000/userProducts?email=${user.email}`;
+            try {
+                const { data } = await axios.get(url, {
+                    headers: {
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    }
+                });
+                setProduct(data);
+                console.log(data);
+            } catch (error) {
+                if (error.response.message === 401 || error.response.message === 403) {
+                    signOut(auth);
+                    navigate('/login');
+                }
+            }
+        }
+        getMyProducts();
+    }, []);
 
     const handelDeleteProduct = id => {
         const url = `https://fierce-everglades-14403.herokuapp.com/product/${id}`;
