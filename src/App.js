@@ -12,6 +12,7 @@ import ManageInventories from './components/ManageInventories/ManageInventories'
 import AddProduct from './components/AddProduct/AddProduct';
 import MyItem from './components/MyItem/MyItem';
 import Blogs from './components/Blogs/Blogs';
+import NotFoundPage from './components/NotFoundPage/NotFoundPage';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <MyItem></MyItem>
           </RequireAuth>
         }></Route>
+        <Route path='*' element={<NotFoundPage></NotFoundPage>}></Route>
       </Routes>
       <Footer></Footer>
       <ToastContainer></ToastContainer>

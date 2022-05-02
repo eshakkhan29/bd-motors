@@ -1,0 +1,4 @@
+.image{
+    height: calc(100vh - 205px);
+    object-fit: cover;
+}
