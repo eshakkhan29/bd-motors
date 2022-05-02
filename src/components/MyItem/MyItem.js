@@ -24,9 +24,9 @@ const MyItem = () => {
                     }
                 });
                 setProduct(data);
-                console.log(data);
             } catch (error) {
-                if (error.response.message === 401 || error.response.message === 403) {
+                console.log(error);
+                if (error.response.status === 401 || error.response.status === 403 || error.message === "Network Error") {
                     signOut(auth);
                     navigate('/login');
                 }
