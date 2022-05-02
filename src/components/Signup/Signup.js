@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../Loading/Loading';
 import auth from '../Login/firebase.init';
+import useUserToken from '../../hook/useUserToken';
 
 const Signup = () => {
     const [errorConfirmPass, setErrorConfirmPass] = useState('');
@@ -19,6 +20,7 @@ const Signup = () => {
     ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const [token] = useUserToken(user || googleUser);
 
 
     const nameRef = useRef('');
@@ -32,7 +34,7 @@ const Signup = () => {
     if (error || googleError || updateError) {
         toast.error(`${error ? error.message : ""} ${googleError ? googleError.message : ""} ${updateError ? updateError.message : ""}`);
     }
-    if (user || googleUser) {
+    if (token) {
         toast.success('Sign Up success , Please verify your email')
         navigate('/login')
     }
