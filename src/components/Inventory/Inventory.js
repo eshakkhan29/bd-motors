@@ -18,7 +18,7 @@ const Inventory = () => {
                 }
             </div>
             <div className='my-5 text-center'>
-                <button onClick={()=>navigate('/manageInventories')} className='btn btn-dark'>Manage Inventories</button>
+                <button onClick={() => navigate('/manageInventories')} className='btn btn-dark'>Manage Inventories</button>
             </div>
         </div>
     );

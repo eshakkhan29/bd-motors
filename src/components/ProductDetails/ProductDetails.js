@@ -1,23 +1,25 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const ProductDetails = () => {
     const quantityRef = useRef('');
     const { productID } = useParams();
     const [product, setProduct] = useState({});
-    const [updateProduct, setUpdateProduct] = useState({});
     const [state, setState] = useState(false);
     const { img, name, description, supplier, price, quantity } = product;
     console.log(product);
-    console.log(state);
 
     useEffect(() => {
-        const url = `https://fierce-everglades-14403.herokuapp.com/product/${productID}`;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setProduct(data))
+        const loadProduct = () => {
+            const url = `https://fierce-everglades-14403.herokuapp.com/product/${productID}`;
+            fetch(url)
+                .then(res => res.json())
+                .then(data => setProduct(data))
+        }
+        loadProduct();
     }, [productID, state])
 
 
@@ -25,58 +27,36 @@ const ProductDetails = () => {
     // delivery product
 
     const handelDelivery = async () => {
-        const { quantity, ...rest } = product;
-        const newQuantity = parseInt(quantity) - 1;
-        const quantityString = JSON.stringify(newQuantity);
-        const updatedProduct = { quantity: quantityString, ...rest };
-        delete updatedProduct._id;
-        setUpdateProduct(updatedProduct)
-        console.log(updatedProduct);
 
-        // const url = `https://fierce-everglades-14403.herokuapp.com/product/${productID}`;
-        // const res = await axios.put(url, updateProduct);
-        // console.log(res);
+        const { ...updateProduct } = product;
+        const { quantity } = updateProduct;
+        const quantityString = JSON.stringify(updateProduct['quantity'] = parseInt(quantity) - 1)
+        updateProduct['quantity'] = quantityString;
+
+        const url = `https://fierce-everglades-14403.herokuapp.com/product/${productID}`;
+        const { data } = await axios.put(url, updateProduct);
+        console.log(data);
+        if (data.acknowledged === true) {
+            toast.success('Your product Delivery successfully')
+        }
         setState(!state);
-
-        // fetch(url, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(updateProduct)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data);
-        //     })
     }
 
     // reStock Product
 
-    const handelRestock = () => {
+    const handelRestock = async () => {
         const increaseQuantity = quantityRef.current.value;
-        const { quantity, ...rest } = product;
-        const newQuantity = parseInt(quantity) + parseInt(increaseQuantity);
-        const quantityString = JSON.stringify(newQuantity);
-        const updatedProduct = { quantity: quantityString, ...rest };
-        delete updatedProduct._id;
-        setUpdateProduct(updatedProduct)
-        console.log(updatedProduct);
-        setState(!state);
-
+        const { ...updateProduct } = product;
+        const { quantity } = updateProduct;
+        const quantityString = JSON.stringify(updateProduct['quantity'] = parseInt(quantity) + parseInt(increaseQuantity))
+        updateProduct['quantity'] = quantityString;
         const url = `https://fierce-everglades-14403.herokuapp.com/product/${productID}`;
-        // fetch(url, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(updateProduct)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data);
-        //         setState(!state);
-        //     })
+        const { data } = await axios.put(url, updateProduct);
+        console.log(data);
+        if (data.acknowledged === true) {
+            toast.success('Your product Added successfully')
+        }
+        setState(!state);
     }
 
     return (
