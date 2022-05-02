@@ -8,7 +8,6 @@ const useUserToken = (user) => {
             const email = user?.user?.email;
             if (email) {
                 const { data } = await axios.post('https://fierce-everglades-14403.herokuapp.com/login', { email });
-                console.log(data);
                 setToken(data.token);
                 localStorage.setItem('accessToken', data.token);
             }

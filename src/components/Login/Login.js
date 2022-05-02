@@ -67,12 +67,12 @@ const Login = () => {
                 <h2>Login</h2>
                 <Form.Group className="mb-3" >
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control ref={emailRef} type="email" placeholder="Enter email" />
+                    <Form.Control required ref={emailRef} type="email" placeholder="Enter email" />
                 </Form.Group>
 
                 <Form.Group className="mb-3" >
                     <Form.Label>Password</Form.Label>
-                    <Form.Control ref={passRef} type="password" placeholder="Password" />
+                    <Form.Control required ref={passRef} type="password" placeholder="Password" />
                 </Form.Group>
                 <p onClick={handelPassReset} className='text-link'>Forget Password ?</p>
                 <Button className='w-100' variant="dark" type="submit">

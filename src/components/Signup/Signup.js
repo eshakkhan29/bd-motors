@@ -17,11 +17,10 @@ const Signup = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const [token] = useUserToken(user || googleUser);
-
 
     const nameRef = useRef('');
     const emailRef = useRef('');
@@ -39,6 +38,10 @@ const Signup = () => {
         navigate('/login')
     }
 
+    const isCheeked = event =>{
+        setCheek(event.target.checked)
+    }
+
     const handelCreateUser = async event => {
         event.preventDefault();
         const name = nameRef.current.value;
@@ -48,10 +51,15 @@ const Signup = () => {
         if (pass !== confirmPass) {
             return setErrorConfirmPass(`Your password dose't match`);
         }
-        await createUserWithEmailAndPassword(email, pass)
-        await updateProfile({ displayName: name })
-        setErrorConfirmPass('');
-        event.target.reset();
+        if (cheek) {
+            await createUserWithEmailAndPassword(email, pass)
+            await updateProfile({ displayName: name })
+            setErrorConfirmPass('');
+            event.target.reset();
+        }
+        else{
+            toast.error('pleas cheek trams and condition')
+        }
     }
     return (
         <div>
@@ -82,9 +90,9 @@ const Signup = () => {
                         }
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Check onClick={() => setCheek(!cheek)} type="checkbox" label="Agree trams and condition to BD MOTORS" />
+                        <Form.Check onChange={event => isCheeked(event)} type="checkbox" label="Agree trams and condition to BD MOTORS" />
                     </Form.Group>
-                    <Button disabled={!cheek} className='w-100' variant="dark" type="submit">
+                    <Button  className='w-100' variant="dark" type="submit">
                         Sign Up
                     </Button>
                     <p onClick={() => navigate('/login')} className='text-center my-4'>already have an account ? <span className='text-link'>Please Login</span> </p>
