@@ -16,19 +16,20 @@ const ManageInventories = () => {
     }
 
     const handelDeleteProduct = id => {
-        
         const url = `https://fierce-everglades-14403.herokuapp.com/product/${id}`;
-        fetch(url, {
-            method: 'DELETE',
-        }).then(res => res.json())
-            .then(data => {
-                console.log(data);
-                if (data?.acknowledged === true) {
-                    const restProducts = products.filter(product => product._id !== id)
-                    setProducts(restProducts);
-                    toast.error('Product Delete successfully')
-                }
-            })
+        if (window.confirm('are you sure you want to delete this item')) {
+            fetch(url, {
+                method: 'DELETE',
+            }).then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data?.acknowledged === true) {
+                        const restProducts = products.filter(product => product._id !== id)
+                        setProducts(restProducts);
+                        toast.error('Product Delete successfully')
+                    }
+                })
+        }
     }
 
     return (

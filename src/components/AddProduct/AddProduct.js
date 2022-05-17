@@ -27,7 +27,7 @@ const AddProduct = () => {
         const img = imgUlrRef.current.value;
         const product = { email, name, description, supplier, price, quantity, img };
 
-        axios.post('https://fierce-everglades-14403.herokuapp.com/products', product)
+        await axios.post('https://fierce-everglades-14403.herokuapp.com/products', product)
             .then(function (response) {
                 if (response.data.acknowledged === true) {
                     toast.success('Your product added successfully')

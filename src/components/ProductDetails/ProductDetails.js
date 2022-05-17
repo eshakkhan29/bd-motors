@@ -2,9 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useDeliveredProduct from '../../hook/useDeliveredProduct';
 
 
 const ProductDetails = () => {
+    const [DeliveredProduct, setDeliveredProduct] = useDeliveredProduct();
     const quantityRef = useRef('');
     const { productID } = useParams();
     const [product, setProduct] = useState({});
@@ -23,6 +25,18 @@ const ProductDetails = () => {
     }, [productID, state])
 
 
+    // delivery product update 
+    const updateDeliveryProduct = async () => {
+        await axios.post('http://localhost:5000/DeliveredProduct', DeliveredProduct)
+            .then(function (response) {
+                if (response.data.acknowledged === true) {
+                    toast.success('Your product added successfully')
+                }
+            })
+            .catch(error => {
+                toast.error('something went wrong')
+            });
+    }
 
     // delivery product
 
@@ -37,6 +51,8 @@ const ProductDetails = () => {
         const { data } = await axios.put(url, updateProduct);
         console.log(data);
         if (data.acknowledged === true) {
+            setDeliveredProduct(updateProduct)
+            updateDeliveryProduct();
             toast.success('Your product Delivery successfully')
         }
         setState(!state);
