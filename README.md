@@ -1,8 +1,13 @@
 # BD MOTORS
 
-BD MOTORS LIVE SITE LINK [BD MOTORS](https://bd-motors-a5d14.web.app/).
+## BD MOTORS LIVE SITE LINK [BD MOTORS](https://bd-motors-a5d14.web.app/).
+## BD MOTORS SERVER SIDE CODE LINK [SERVER CODE LINK](https://github.com/eshakkhan29/bd-motors-server0).
 
 ## feature in this project
+- Update a product with quantity by clicking delivered and add quantity by restock.
+- Implementation of reacts private routing system. A user who is not logged in cannot update,
+manage or add product.
+- Use of Firebase email-password login system and Google login with a single click.
 - login / sign up 
 - Email verification 
 - password reset
