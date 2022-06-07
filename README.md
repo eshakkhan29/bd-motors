@@ -1,7 +1,7 @@
 # BD MOTORS
 
 ## BD MOTORS LIVE SITE LINK [BD MOTORS](https://bd-motors-a5d14.web.app/).
-## BD MOTORS SERVER SIDE CODE LINK [SERVER CODE LINK](https://github.com/eshakkhan29/bd-motors-server0).
+## BD MOTORS SERVER SIDE CODE LINK [SERVER CODE LINK](https://github.com/eshakkhan29/bd-motors-server).
 
 ## feature in this project
 - Update a product with quantity by clicking delivered and add quantity by restock.
